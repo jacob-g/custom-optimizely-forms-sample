@@ -1,0 +1,22 @@
+﻿@model FormsTest.Models.FormElements.MinMaxRangeFormElementBlock
+
+@{
+    var formElement = Model.FormElement;
+    var errorMessage = Model.GetErrorMessage();
+    var submittedValue = Model.GetSubmittedValue() as Tuple<int, int>;
+}
+
+<fieldset class="Form__Element Form__CustomElement Form__Element__MinMaxRange" data-epiforms-element-name="@formElement.ElementName">
+    <legend class="Form__Element__Caption">@Model.Label</legend>
+
+    <table border="0">
+        <tbody>
+            <tr>
+                <td><label for="@(formElement.Guid)_min">@Html.Translate("Form.Element.MinMaxRange.Min")</label> <input id="@(formElement.Guid)_min" type="number" data-rangepart="min" name="@(formElement.ElementName)_min" value="@(submittedValue == null ? string.Empty : submittedValue.Item1.ToString())" /></td>
+                <td><label for="@(formElement.Guid)_max">@Html.Translate("Form.Element.MinMaxRange.Min")</label> <input id="@(formElement.Guid)_max" type="number" data-rangepart="max" name="@(formElement.ElementName)_max" value="@(submittedValue == null ? string.Empty : submittedValue.Item2.ToString())" /></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div role="alert" aria-live="polite" data-epiforms-linked-name="@formElement.ElementName" class="Form__Element__ValidationError" style="@(string.IsNullOrEmpty(errorMessage) ? " display:none" : "")">@errorMessage</div>
+</fieldset>
